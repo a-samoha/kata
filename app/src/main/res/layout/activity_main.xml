@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.34"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.6" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@id/fragmentContainer1"
+        app:layout_constraintWidth_percent="0.6" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/lifecycleCallbacks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            tools:text="@string/this_in_lifecycle_app" />
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnShowDialog"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/alert_dialog"
+        app:layout_constraintStart_toStartOf="@id/btnToggleSharedPrefs"
+        app:layout_constraintTop_toTopOf="@id/btnShowFragment1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnShowFragment1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/show_fragment1"
+        app:layout_constraintBottom_toTopOf="@id/btnShowFragment2"
+        app:layout_constraintEnd_toEndOf="@id/btnShowFragment2"
+        app:layout_constraintStart_toStartOf="@id/btnShowFragment2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnGetFromSimpleRepo"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/get"
+        app:layout_constraintStart_toStartOf="@id/btnToggleSharedPrefs"
+        app:layout_constraintTop_toTopOf="@id/btnShowFragment2" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnShowFragment2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/show_fragment2"
+        app:layout_constraintBottom_toTopOf="@id/btnNewActivity"
+        app:layout_constraintEnd_toEndOf="@id/btnNewActivity"
+        app:layout_constraintStart_toStartOf="@id/btnNewActivity" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnUpdateSimpleRepo"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/update_simple_repo"
+        app:layout_constraintEnd_toEndOf="@id/btnToggleSharedPrefs"
+        app:layout_constraintStart_toStartOf="@id/btnToggleSharedPrefs"
+        app:layout_constraintTop_toTopOf="@id/btnNewActivity" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnNewActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/new_activity"
+        app:layout_constraintBottom_toTopOf="@id/btnClearLogs"
+        app:layout_constraintEnd_toEndOf="@id/btnClearLogs"
+        app:layout_constraintStart_toStartOf="@id/btnClearLogs" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnJobsInfo"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:text="@string/jobs_info"
+        app:layout_constraintEnd_toEndOf="@id/btnToggleSharedPrefs"
+        app:layout_constraintStart_toStartOf="@id/btnToggleSharedPrefs"
+        app:layout_constraintTop_toTopOf="@id/btnClearLogs" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnClearLogs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_logs"
+        app:layout_constraintBottom_toTopOf="@id/btnReadSharedPrefs"
+        app:layout_constraintEnd_toEndOf="@id/btnReadSharedPrefs"
+        app:layout_constraintStart_toStartOf="@id/btnReadSharedPrefs" />
+
+    <androidx.appcompat.widget.AppCompatToggleButton
+        android:id="@+id/btnToggleSharedPrefs"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:checked="true"
+        android:textOff="@string/clear_sp"
+        android:textOn="@string/save_to_sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnReadSharedPrefs" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnReadSharedPrefs"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="@string/get_from_shared_prefs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_width="160dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
