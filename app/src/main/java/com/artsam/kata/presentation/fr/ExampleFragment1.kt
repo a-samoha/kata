@@ -1,4 +1,4 @@
-package com.artsam.kata
+package com.artsam.kata.presentation.fr
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.artsam.kata.R
 
 
-class ExampleFragment2 : Fragment() {
+class ExampleFragment1 : Fragment() {
 
     private lateinit var textView: TextView
 
@@ -63,10 +64,10 @@ class ExampleFragment2 : Fragment() {
                 val sfm = requireActivity().supportFragmentManager
                 sfm.commit {
                     val arguments = Bundle()
-                    arguments.putString("key", "From ${this@ExampleFragment2.hashCode()}")
-                    add<ExampleFragment2>(R.id.fragmentContainer2, args = arguments)
+                    arguments.putString("key", "From ${this@ExampleFragment1.hashCode()}")
+                    add<ExampleFragment1>(R.id.fragmentContainer1, args = arguments)
                     setReorderingAllowed(true)
-                    addToBackStack("${this@ExampleFragment2.hashCode()}")
+                    addToBackStack("${this@ExampleFragment1.hashCode()}")
                 }
             }
         }
@@ -76,10 +77,10 @@ class ExampleFragment2 : Fragment() {
                 val sfm = requireActivity().supportFragmentManager
                 sfm.commit {
                     val arguments = Bundle()
-                    arguments.putString("key", "From ${this@ExampleFragment2.hashCode()}")
-                    replace<ExampleFragment2>(R.id.fragmentContainer2, args = arguments)
+                    arguments.putString("key", "From ${this@ExampleFragment1.hashCode()}")
+                    replace<ExampleFragment1>(R.id.fragmentContainer1, args = arguments)
                     setReorderingAllowed(true)
-                    addToBackStack("${this@ExampleFragment2.hashCode()}")
+                    addToBackStack("${this@ExampleFragment1.hashCode()}")
                 }
             }
         }
@@ -87,7 +88,7 @@ class ExampleFragment2 : Fragment() {
         btnRemove?.let {
             it.setOnClickListener {
                 val sfm = requireActivity().supportFragmentManager
-                sfm.commit { remove(this@ExampleFragment2) }
+                sfm.commit { remove(this@ExampleFragment1) }
             }
         }
         val btnBack = rootView.findViewById<AppCompatButton>(R.id.btnBack)
@@ -150,6 +151,8 @@ class ExampleFragment2 : Fragment() {
         appendLog("view $textView")
     }
     // endregion
+
+    fun receiveMsg(msg: String) = appendLog(msg)
 
     companion object {
         const val SAVED_LOGS = "fragment_saved_logs"

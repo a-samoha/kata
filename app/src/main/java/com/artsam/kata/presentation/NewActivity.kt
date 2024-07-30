@@ -1,8 +1,9 @@
-package com.artsam.kata
+package com.artsam.kata.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.artsam.kata.R
 
 class NewActivity : AppCompatActivity() {
 

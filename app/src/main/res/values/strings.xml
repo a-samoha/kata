@@ -33,6 +33,7 @@
     <string name="clear_sp">Sh Pr Off</string>
     <string name="simple_alert_dialog">My simple Alert Dialog</string>
     <string name="back">Back</string>
+    <string name="send">Send</string>
     <string name="new_appcompatactivity">New AppCompatActivity</string>
     <string name="update_simple_repo">Update data</string>
     <string name="jobs_info">Jobs Info</string>

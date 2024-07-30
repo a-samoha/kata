@@ -1,4 +1,4 @@
-package com.artsam.kata
+package com.artsam.kata.data
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,14 +35,14 @@ class SimpleRepository(
         else myCache.asSharedFlow().take(1)
 
     suspend fun update(newValue: Int) = runCatching {
-        serverApi.update(newValue)
-        myCache.emit(serverApi.read())
+        ServerExample.update(newValue)
+        myCache.emit(ServerExample.read())
     }
 
     suspend fun reset() = update(0)
 
     private fun fetch() = flow {
-        emit(serverApi.read())
+        emit(ServerExample.read())
     }.onEach { myCache.emit(it) }
         .catch { emit(SERVER_ERROR_VALUE) }
 

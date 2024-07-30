@@ -1,18 +1,18 @@
-package com.artsam.kata
+package com.artsam.kata.presentation.fr
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.artsam.kata.R
+import com.artsam.kata.presentation.MainActivity
 
 
-class ExampleFragment1 : Fragment() {
+class ExampleFragment2 : Fragment(R.layout.fragment_example) {
 
     private lateinit var textView: TextView
 
@@ -21,30 +21,9 @@ class ExampleFragment1 : Fragment() {
         println("test fr ${this.hashCode()} callback " + getString(R.string.on_create))
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view = inflater.inflate(R.layout.fragment_example, container, false)
-        // only for logs, use view from onViewCreated()
-        textView = view.findViewById(R.id.lifecycleCallbacks)
-
-        appendLog("This ${this.hashCode()}")
-
-        val parent = arguments?.getString("key", "DefaultStr")
-        parent?.let { appendLog(it) }
-
-        val savedInstanceStateLogs = savedInstanceState?.getString(SAVED_LOGS)
-
-        appendLog(savedInstanceStateLogs + "\n" + getString(R.string.on_create_view))
-        println("test fr ${this.hashCode()} callback " + getString(R.string.on_create_view))
-
-        return view
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        textView = view.findViewById(R.id.lifecycleCallbacks)
 
         appendLog(getString(R.string.on_view_created))
         println("test fr ${this.hashCode()} callback " + getString(R.string.on_view_created))
@@ -57,16 +36,20 @@ class ExampleFragment1 : Fragment() {
     }
 
     private fun setListeners(rootView: View) {
+        val btnSend = rootView.findViewById<AppCompatButton>(R.id.btnSend)
+        btnSend?.let {
+            it.setOnClickListener { (requireActivity() as MainActivity).onButtonClick("btn clicked") }
+        }
         val btnAdd = rootView.findViewById<AppCompatButton>(R.id.btnAdd)
         btnAdd?.let {
             it.setOnClickListener {
                 val sfm = requireActivity().supportFragmentManager
                 sfm.commit {
                     val arguments = Bundle()
-                    arguments.putString("key", "From ${this@ExampleFragment1.hashCode()}")
-                    add<ExampleFragment1>(R.id.fragmentContainer1, args = arguments)
+                    arguments.putString("key", "From ${this@ExampleFragment2.hashCode()}")
+                    add<ExampleFragment2>(R.id.fragmentContainer2, args = arguments)
                     setReorderingAllowed(true)
-                    addToBackStack("${this@ExampleFragment1.hashCode()}")
+                    addToBackStack("${this@ExampleFragment2.hashCode()}")
                 }
             }
         }
@@ -76,10 +59,10 @@ class ExampleFragment1 : Fragment() {
                 val sfm = requireActivity().supportFragmentManager
                 sfm.commit {
                     val arguments = Bundle()
-                    arguments.putString("key", "From ${this@ExampleFragment1.hashCode()}")
-                    replace<ExampleFragment1>(R.id.fragmentContainer1, args = arguments)
+                    arguments.putString("key", "From ${this@ExampleFragment2.hashCode()}")
+                    replace<ExampleFragment2>(R.id.fragmentContainer2, args = arguments)
                     setReorderingAllowed(true)
-                    addToBackStack("${this@ExampleFragment1.hashCode()}")
+                    addToBackStack("${this@ExampleFragment2.hashCode()}")
                 }
             }
         }
@@ -87,7 +70,7 @@ class ExampleFragment1 : Fragment() {
         btnRemove?.let {
             it.setOnClickListener {
                 val sfm = requireActivity().supportFragmentManager
-                sfm.commit { remove(this@ExampleFragment1) }
+                sfm.commit { remove(this@ExampleFragment2) }
             }
         }
         val btnBack = rootView.findViewById<AppCompatButton>(R.id.btnBack)

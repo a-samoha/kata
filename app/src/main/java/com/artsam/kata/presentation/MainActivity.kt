@@ -1,4 +1,4 @@
-package com.artsam.kata
+package com.artsam.kata.presentation
 
 import android.content.Context
 import android.content.Intent
@@ -11,12 +11,17 @@ import androidx.appcompat.widget.AppCompatToggleButton
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
+import com.artsam.kata.R
+import com.artsam.kata.data.SimpleRepository
+import com.artsam.kata.presentation.fr.ExampleFragment1
+import com.artsam.kata.presentation.fr.ExampleFragment2
+import com.artsam.kata.presentation.fr.FragmentListener
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FragmentListener {
 
 //    val backStackIds = mutableListOf<String>()
 
@@ -125,7 +130,8 @@ class MainActivity : AppCompatActivity() {
             if (showInFirstContainer) {
                 add<ExampleFragment1>(
                     R.id.fragmentContainer1,
-                    args = arguments
+                    args = arguments,
+                    tag = FIRST
                 )
             } else {
                 add<ExampleFragment2>(
@@ -214,6 +220,11 @@ class MainActivity : AppCompatActivity() {
     }
     // endregion
 
+    override fun onButtonClick(value: String) {
+        val fr = supportFragmentManager.findFragmentByTag(FIRST) as ExampleFragment1
+        fr.receiveMsg(value)
+    }
+
     companion object {
         const val ON_SAVED_INSTANCE_LOGS = "ON_SAVED_INSTANCE_LOGS"
         const val SHARED_PREFS_LOGS = "SHARED_PREFS_LOGS"
@@ -222,4 +233,5 @@ class MainActivity : AppCompatActivity() {
         const val FIRST = "FIRST"
         const val SECOND = "SECOND"
     }
+
 }
