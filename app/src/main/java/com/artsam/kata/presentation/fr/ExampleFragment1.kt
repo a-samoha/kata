@@ -10,7 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.lifecycle.lifecycleScope
 import com.artsam.kata.R
+import kotlinx.coroutines.launch
 
 
 class ExampleFragment1 : Fragment() {
@@ -58,10 +60,16 @@ class ExampleFragment1 : Fragment() {
     }
 
     private fun setListeners(rootView: View) {
+        lifecycleScope.launch {
+            ExampleFragment2.getDataEmitter().dataFlow.collect {
+                appendLog(it)
+            }
+        }.invokeOnCompletion { println("test ${this.hashCode()} lifecycle job completed") }
+
         val btnAdd = rootView.findViewById<AppCompatButton>(R.id.btnAdd)
         btnAdd?.let {
             it.setOnClickListener {
-                val sfm = requireActivity().supportFragmentManager
+                val sfm = parentFragmentManager
                 sfm.commit {
                     val arguments = Bundle()
                     arguments.putString("key", "From ${this@ExampleFragment1.hashCode()}")
@@ -74,7 +82,7 @@ class ExampleFragment1 : Fragment() {
         val btnReplace = rootView.findViewById<AppCompatButton>(R.id.btnReplace)
         btnReplace?.let {
             it.setOnClickListener {
-                val sfm = requireActivity().supportFragmentManager
+                val sfm = parentFragmentManager
                 sfm.commit {
                     val arguments = Bundle()
                     arguments.putString("key", "From ${this@ExampleFragment1.hashCode()}")
@@ -87,15 +95,15 @@ class ExampleFragment1 : Fragment() {
         val btnRemove = rootView.findViewById<AppCompatButton>(R.id.btnRemove)
         btnRemove?.let {
             it.setOnClickListener {
-                val sfm = requireActivity().supportFragmentManager
-                sfm.commit { remove(this@ExampleFragment1) }
+                val sfm = parentFragmentManager
+                sfm.commit { remove(this@ExampleFragment1) } // remove DOESN'T destroy fragment object only its ui view
             }
         }
         val btnBack = rootView.findViewById<AppCompatButton>(R.id.btnBack)
         btnBack?.let {
             it.setOnClickListener {
-                val sfm = requireActivity().supportFragmentManager
-                sfm.popBackStack()
+                val sfm = parentFragmentManager
+                sfm.popBackStack() // popBackStack destroys fragment completely up to 'onDestroy()'
             }
         }
     }

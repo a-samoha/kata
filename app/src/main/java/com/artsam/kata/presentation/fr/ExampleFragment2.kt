@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.lifecycle.lifecycleScope
 import com.artsam.kata.R
-import com.artsam.kata.presentation.MainActivity
+import kotlinx.coroutines.launch
 
 
 class ExampleFragment2 : Fragment(R.layout.fragment_example) {
@@ -38,7 +39,14 @@ class ExampleFragment2 : Fragment(R.layout.fragment_example) {
     private fun setListeners(rootView: View) {
         val btnSend = rootView.findViewById<AppCompatButton>(R.id.btnSend)
         btnSend?.let {
-            it.setOnClickListener { (requireActivity() as MainActivity).onButtonClick("btn clicked") }
+            it.setOnClickListener {
+                // Variant1
+                // (requireActivity() as MainActivity).onButtonClick("btn clicked")
+
+                // Variant2
+                lifecycleScope.launch { dataEmitter.emitData("New msg") }
+                    .invokeOnCompletion { println("test New msg job completed") }
+            }
         }
         val btnAdd = rootView.findViewById<AppCompatButton>(R.id.btnAdd)
         btnAdd?.let {
@@ -135,6 +143,8 @@ class ExampleFragment2 : Fragment(R.layout.fragment_example) {
     // endregion
 
     companion object {
+        private val dataEmitter = DataEmitter<String>()
+        fun getDataEmitter(): DataEmitter<String> = dataEmitter
         const val SAVED_LOGS = "fragment_saved_logs"
     }
 }
